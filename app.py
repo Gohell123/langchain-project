@@ -27,7 +27,7 @@ def summarize_search(llm, raw_text):
     return response.content
 
 def needs_summarization(text):
-    return len(text) > 1200 or "http" in text.lower()
+    return len(text) > 2000 or "http" in text.lower()
 
 
 
@@ -68,7 +68,7 @@ def main():
 
     while True:
         query = input("Ask something: (type 'exit' to quit): ") 
-        
+
         if query.lower() == "exit":
             break
         start=time.time()

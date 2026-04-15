@@ -18,4 +18,4 @@ def search(query: str) -> str:
 
     
     # Clean output
-    return "\n".join([r["content"][:500] for r in results["results"][:2]])
+    return "\n".join([r["content"][:500] for r in results["results"][:4]])
