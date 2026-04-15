@@ -35,7 +35,7 @@ User Query → Router → (Search | RAG | Agent)
 ## Setup
 
 ```bash
-git clone https://github.com/Gohell123/multi-tool-agentic-rag.git
+git clone https://github.com/Gohell123/langchain-project/tree/multi-tool-agentic-rag-system
 cd multi-tool-agentic-rag
 
 uv venv
