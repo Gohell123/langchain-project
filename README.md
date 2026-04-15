@@ -17,14 +17,7 @@ A **production-style Agentic AI system** built with **LangChain**, combining **R
 
 ## Architecture
 
-
-User Query
-   ↓
-Router
-   ↓
- ├── Search → Summarization
- ├── RAG → Knowledge Retrieval
- └── Agent → Tool Execution
+User Query → Router → (Search | RAG | Agent)
 ```
 
 
