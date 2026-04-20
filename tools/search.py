@@ -10,7 +10,7 @@ tavily = TavilyClient(api_key=TAVILY_API_KEY)
 @tool
 @traceable(name="Tavily Search")
 def search(query: str) -> str:
-    """Search the web for latest information"""
+    """Search the web for latest information or any general user queries """
     results = tavily.search(query=query)
 
     if not results or "results" not in results:

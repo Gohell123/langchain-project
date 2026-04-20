@@ -1,24 +1,81 @@
 # Multi-Tool Agentic RAG System
 
-A **production-style Agentic AI system** built with **LangChain**, combining **RAG, Search, and Tool-based reasoning** with chat memory and smart routing.
+
+A **production-style Agentic AI system** built using **LangChain**, combining **RAG, Search, and Tool-based reasoning** with intelligent routing, memory, and latency optimizations.
 
 ---
 
-## Features
+## Key Features
 
-* **Agentic AI** with multi-tool reasoning
-* **RAG (Pinecone + HuggingFace Embeddings)**
-* **Real-time Search (Tavily API)**
-* **Context-aware Query Routing**
-* **Chat Memory (multi-turn conversations)**
-* **Optimized performance (conditional LLM calls)**
+- **Agentic AI with Tool Calling (ReAct-style reasoning)**
+- **Intelligent Query Routing (Chat | RAG | Search | Agent)**
+- **RAG Pipeline (Pinecone + HuggingFace Embeddings)**
+- **Real-time Web Search (Tavily API)**
+- **Conversation Memory (multi-turn context handling)**
+- **Multi-layer Caching (Exact + Semantic)**
+- **Latency Optimization (conditional LLM + tool-first execution)**
+- **Input Guardrails (vague / irrelevant query handling)**
 
 ---
 
 ## Architecture
 
-User Query → Router → (Search | RAG | Agent)
+User Query
+↓
+Router (Intent Detection + Context Awareness)
+↓
+┌───────────────┬───────────────┬───────────────┐
+│ 
+Chat            RAG             Search          Agent
+│               │               │                  │
+│           Vector DB       Tavily API      Tool Orchestration
+│           (Pinecone)                  │ (ReAct Loop)
+│               │               │              │
+└─────────────┴───────┬───────┴───────────────┘
+↓
+Final Response
 ```
+
+## ⚙️ Core Components
+
+### 🔹 Router
+- Rule-based intent classification
+- Context-aware follow-up handling
+- Prevents unnecessary agent execution (latency optimization)
+
+### 🔹 Agent
+- ReAct-style reasoning with tool calling
+- Handles multi-step queries and business logic
+- Integrated with:
+  - Price Tool
+  - Discount Tool
+  - RAG Tool
+
+### RAG Pipeline
+- Embeddings: HuggingFace (`all-MiniLM-L6-v2`)
+- Vector DB: Pinecone
+- Optimized retrieval using:
+  - similarity threshold
+  - top-k filtering
+
+### Search
+- Tavily API for real-time external knowledge
+- Optional summarization for noisy results
+
+### Caching Layer
+- Exact match caching
+- Semantic caching (embedding similarity)
+- Reduces repeated LLM and tool calls significantly
+
+
+
+## Performance Optimizations
+
+- Reduced unnecessary LLM calls via routing
+- Tool-first execution for deterministic queries
+- Semantic caching for similar queries
+- Trimmed context + controlled memory window
+- Conditional summarization for large responses
 
 
 ## Tech Stack
@@ -64,12 +121,18 @@ AI: Final price = $1104.99
 
 ## Highlights
 
-* Built **hybrid AI system (Agent + RAG + Search)**
-* Implemented **memory-aware routing for follow-up queries**
-* Reduced latency using **conditional summarization**
-* Designed **robust tool calling with input normalization**
+- Designed a hybrid AI system (Agent + RAG + Search)
+- Implemented context-aware routing for multi-turn conversations
+- Built multi-layer caching (exact + semantic) for latency reduction
+- Solved tool selection ambiguity in agent systems
+- Applied production-level optimizations (latency, fallback, guardrails)
 
 ---
+
+## Agent 
+Business Tools -Query Product Price and apply Discounts
+RAG - Stores VectorDB Theoritical Concepts
+WebSearch - General Query
 
 ## Author
 
