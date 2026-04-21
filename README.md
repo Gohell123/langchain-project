@@ -20,20 +20,17 @@ A **production-style Agentic AI system** built using **LangChain**, combining **
 
 ## Architecture
 
-User Query
-↓
-Router (Intent Detection + Context Awareness)
-↓
-┌───────────────┬───────────────┬───────────────┐
-│ 
-Chat            RAG             Search          Agent
-│               │               │                  │
-│           Vector DB       Tavily API      Tool Orchestration
-│           (Pinecone)                  │ (ReAct Loop)
-│               │               │              │
-└─────────────┴───────┬───────┴───────────────┘
-↓
-Final Response
+A[User Query] --> B[Agent (LLM)] B --> C{Decide Action} 
+C -->|RAG| D[Vector DB (Pinecone)] 
+C -->|Search| E[Web Search] 
+C -->|Tool| F[Custom Tools] 
+
+D --> G[Context] 
+E --> G 
+F --> G 
+
+G --> H[LLM Response] 
+H --> I[Final Answer]
 ```
 
 ## ⚙️ Core Components
