@@ -1,6 +1,10 @@
 from langchain_ollama import ChatOllama
-from config import GEMINI_API_KEY
+from langchain_google_genai import ChatGoogleGenerativeAI
+import os
 
 def get_llm():
-    return ChatOllama(
-        model="qwen3:1.7b")
+    return ChatGoogleGenerativeAI(
+        model="gemini-2.5-flash",
+        temperature=0,
+        google_api_key=os.getenv("GOOGLE_API_KEY")
+    )

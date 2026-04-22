@@ -7,12 +7,12 @@ import redis
 import json
 from langchain_core.messages import HumanMessage, AIMessage, ToolMessage
 
-# redis_client = redis.Redis(host="localhost", port=6379, decode_responses=True)
-redis_client = redis.from_url(os.getenv("REDIS_URL"))
+redis_client = redis.Redis(host="localhost", port=6379, decode_responses=True)
+#redis_client = redis.from_url(os.getenv("REDIS_URL"))
 
 # 🔹 -------- Serialization helpers --------
 def serialize_message(msg):
-    # 🚫 Skip ToolMessage completely
+    # Skip ToolMessage completely
     if isinstance(msg, ToolMessage):
         return None
 
