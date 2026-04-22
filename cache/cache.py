@@ -9,7 +9,7 @@ cache = {}
 semantic_cache = []
 
 # Embedding model
-embed_model = HuggingFaceEmbeddings(model="sentence-transformers/all-MiniLM-L6-v2")
+# embed_model = HuggingFaceEmbeddings(model="sentence-transformers/all-MiniLM-L6-v2")
 
 def set_cache(key,value):
     cache[key]=(value,time.time())
@@ -23,21 +23,21 @@ def get_cache(key,ttl=300):
     return None
 
 
-def add_semantic_cache(query,response):
-    emb=embed_model.embed_query(query)
-    semantic_cache.append((emb,response,time.time()))
+# def add_semantic_cache(query,response):
+#     emb=embed_model.embed_query(query)
+#     semantic_cache.append((emb,response,time.time()))
 
 
-def get_semantic_cache(query,threshold=0.85,ttl=300):
-    query_emb=embed_model.embed_query(query)
+# def get_semantic_cache(query,threshold=0.85,ttl=300):
+#     query_emb=embed_model.embed_query(query)
 
-    for emb,resp,ts in semantic_cache:
-        if time.time()-ts>ttl:
-            continue
-        sim=np.dot(query_emb,emb)/(np.linalg.norm(query_emb) * np.linalg.norm(emb))
-        if sim>threshold:
-            return resp
-    return None
+#     for emb,resp,ts in semantic_cache:
+#         if time.time()-ts>ttl:
+#             continue
+#         sim=np.dot(query_emb,emb)/(np.linalg.norm(query_emb) * np.linalg.norm(emb))
+#         if sim>threshold:
+#             return resp
+#     return None
 
 
 
