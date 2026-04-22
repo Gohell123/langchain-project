@@ -10,6 +10,8 @@ from langchain_core.messages import HumanMessage, AIMessage, ToolMessage
 redis_client = redis.Redis(host="localhost", port=6379, decode_responses=True)
 #redis_client = redis.from_url(os.getenv("REDIS_URL"))
 
+print("Starting FastAPI app...")
+
 # 🔹 -------- Serialization helpers --------
 def serialize_message(msg):
     # Skip ToolMessage completely
