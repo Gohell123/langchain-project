@@ -176,30 +176,31 @@ def handle_query(query, agent, llm, system_prompt, chat_history):
             return semantic
         
 
-    try:
-        chat_history.append(HumanMessage(content=query))
+        try:
+            chat_history.append(HumanMessage(content=query))
 
-        result = agent.invoke({
-            "messages": [SystemMessage(content=system_prompt)] + chat_history
-        })
+            result = agent.invoke({
+                "messages": [SystemMessage(content=system_prompt)] + chat_history
+            })
 
-        ai_message = result["messages"][-1]
-        answer = ai_message.content or "No response generated."
+            ai_message = result["messages"][-1]
+            answer = ai_message.content or "No response generated."
 
-        chat_history.append(ai_message)
+            chat_history.append(ai_message)
 
-        # Limit memory
-        MAX_HISTORY = 6
-        if len(chat_history) > MAX_HISTORY:
-            chat_history[:] = chat_history[-MAX_HISTORY:]
+            # Limit memory
+            MAX_HISTORY = 6
+            if len(chat_history) > MAX_HISTORY:
+                chat_history[:] = chat_history[-MAX_HISTORY:]
 
-        set_cache(query, answer)
-        add_semantic_cache(query, answer)
+            set_cache(query, answer)
+            add_semantic_cache(query, answer)
 
-        return answer
+            return answer
 
-    except Exception:
-        return "Something went wrong. Please try again."
+        except Exception as e:
+            print(e)
+            return "Something went wrong. Please try again."
 
 def main():
     chat_history=[]
