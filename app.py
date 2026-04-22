@@ -6,7 +6,7 @@ import os
 from tools.search import search
 from tools.rag import retrieve_context
 from tools.business import get_product_price, get_product_discount
-from cache.cache import get_cache,set_cache,add_semantic_cache,get_semantic_cache
+from cache.cache import get_cache,set_cache#add_semantic_cache,get_semantic_cache
 import time
 
 os.environ["LANGCHAIN_TRACING_V2"] = "true"
@@ -96,9 +96,9 @@ def handle_query(query, agent, llm, system_prompt, chat_history):
         if cached:
             return cached
 
-        semantic = get_semantic_cache(query)
-        if semantic:
-            return semantic
+        # semantic = get_semantic_cache(query)
+        # if semantic:
+        #     return semantic
 
         try:
             result = search.invoke({"query": query})
@@ -110,7 +110,7 @@ def handle_query(query, agent, llm, system_prompt, chat_history):
                 answer = result
 
             set_cache(query, answer)
-            add_semantic_cache(query, answer)
+            # add_semantic_cache(query, answer)
 
             return answer
 
@@ -123,9 +123,9 @@ def handle_query(query, agent, llm, system_prompt, chat_history):
         if cached:
             return cached
 
-        semantic = get_semantic_cache(query)
-        if semantic:
-            return semantic
+        # semantic = get_semantic_cache(query)
+        # if semantic:
+        #     return semantic
 
         try:
             result = retrieve_context.invoke({"query": query})
@@ -136,7 +136,7 @@ def handle_query(query, agent, llm, system_prompt, chat_history):
             answer = str(result)
 
             set_cache(query, answer)
-            add_semantic_cache(query, answer)
+            # add_semantic_cache(query, answer)
 
             return answer
 
@@ -149,9 +149,9 @@ def handle_query(query, agent, llm, system_prompt, chat_history):
         if cached:
             return cached
 
-        semantic = get_semantic_cache(query)
-        if semantic:
-            return semantic
+        # semantic = get_semantic_cache(query)
+        # if semantic:
+        #     return semantic
 
         response = llm.invoke([
             SystemMessage(content="You are a helpful assistant."),
@@ -161,7 +161,7 @@ def handle_query(query, agent, llm, system_prompt, chat_history):
         answer = response.content
 
         set_cache(query, answer)
-        add_semantic_cache(query, answer)
+        # add_semantic_cache(query, answer)
 
         return answer
 
@@ -171,9 +171,9 @@ def handle_query(query, agent, llm, system_prompt, chat_history):
         if cached:
             return cached
 
-        semantic = get_semantic_cache(query)
-        if semantic:
-            return semantic
+        # semantic = get_semantic_cache(query)
+        # if semantic:
+        #     return semantic
         
 
         try:
@@ -194,7 +194,7 @@ def handle_query(query, agent, llm, system_prompt, chat_history):
                 chat_history[:] = chat_history[-MAX_HISTORY:]
 
             set_cache(query, answer)
-            add_semantic_cache(query, answer)
+            #add_semantic_cache(query, answer)
 
             return answer
 
