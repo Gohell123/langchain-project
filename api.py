@@ -48,9 +48,7 @@ def load_history(session_id):
         messages = json.loads(data)
 
         return [
-            deserialize_message(m)
-            for m in messages
-            if deserialize_message(m)
+            deserialize_message(m) for m in messages if deserialize_message(m)
         ]
 
     except Exception as e:
