@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from langchain_community.document_loaders import TextLoader
 from langchain_text_splitters import CharacterTextSplitter
 from langchain_pinecone import PineconeVectorStore
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from langchain_cohere import CohereEmbeddings
 load_dotenv()
 
 def main():
@@ -23,12 +23,14 @@ if __name__ == "__main__":
     print(f"Created Chunks:{len(chunks)}")
 
 
-    embeddings = GoogleGenerativeAIEmbeddings(
-    model="models/embedding-001",
-    google_api_key=os.getenv("GOOGLE_API_KEY")
+    embeddings = CohereEmbeddings(
+    model="embed-english-v3.0",
+    cohere_api_key=os.getenv("COHERE_API_KEY")
 )
 
     print("ingesting..")
+    
+   
     PineconeVectorStore.from_documents(chunks,embeddings,index_name=os.environ['INDEX_NAME'])
     print("finish")
 

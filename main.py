@@ -10,6 +10,7 @@ from langchain_core.runnables import RunnablePassthrough
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_cohere import CohereEmbeddings
 from langchain_ollama import ChatOllama
 
 load_dotenv()
@@ -17,7 +18,11 @@ load_dotenv()
 print("Initializing..")
 
 
-embeddings=HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+embeddings = CohereEmbeddings(
+    model="embed-english-v3.0",
+    cohere_api_key=os.getenv("COHERE_API_KEY")
+)
+
 llm=ChatOllama(model="qwen3:1.7b")
 vectorstore=PineconeVectorStore(embedding=embeddings,index_name=os.environ['INDEX_NAME'])
 
