@@ -1,7 +1,9 @@
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from langchain_cohere import CohereEmbeddings
 import os
 
-embeddings = GoogleGenerativeAIEmbeddings(
-    model="models/embedding-001",
-    google_api_key=os.getenv("GEMINI_API_KEY")
+
+def get_embeddings():
+    return CohereEmbeddings(
+    model="embed-english-v3.0",
+    cohere_api_key=os.getenv("COHERE_API_KEY")
 )
