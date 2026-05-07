@@ -12,3 +12,6 @@ node_modules/
 *.csv
 *.parquet
 *.pdf
+.venv
+ingestion.py
+ingestion/
